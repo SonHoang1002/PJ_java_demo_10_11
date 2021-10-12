@@ -311,7 +311,7 @@
         <div class="d-flex flex-column comment-section">
           <h5>Reviews</h5>
           <c:if test="${sessionScope.acc != null}">
-            <form action="addComment" method="post">
+            <form action="/addComment" method="post">
               <div class="bg-light p-2">
                 <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://cdn-icons-png.flaticon.com/512/1159/1159740.png" width="40"><textarea class="form-control ml-1 shadow-none textarea" name="comment"></textarea></div>
                 <div class="modal-footer">

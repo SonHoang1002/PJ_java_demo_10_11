@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class DetailControl extends HttpServlet {
         List<Comment> list = dao.getAllComment(id);
         request.setAttribute("detail", food);
         request.setAttribute("cmt",list);
+        HttpSession session = request.getSession();
+        session.setAttribute("f",food);
         request.getRequestDispatcher("detail.jsp").forward(request,response);
 
     }
