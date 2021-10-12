@@ -38,35 +38,22 @@
                 </div>
                 <div class="col-sm-6">
                     <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-                    <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                 </div>
             </div>
         </div>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
-                </th>
                 <th>ID</th>
                 <th>Tên món ăn</th>
                 <th>Hình ảnh</th>
                 <th>Đơn giá</th>
-                <th>Actions</th>
+                <th>Tùy chọn</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${listF}" var="o">
                 <tr>
-                    <td>
-                                    <span class="custom-checkbox">
-                                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                        <label for="checkbox1"></label>
-                                    </span>
-                    </td>
                     <td>${o.id}</td>
                     <td><b>${o.name}</b></td>
                     <td>
@@ -83,7 +70,7 @@
         </table>
     </div>
     <a href="/"><button type="button" class="btn btn-primary">Back to home</button>
-
+    </a>
 </div>
 
 <div id="addEmployeeModal" class="modal fade">
@@ -129,62 +116,5 @@
         </div>
     </div>
 </div>
-
-<div id="editModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="load" method="post">
-                <div class="modal-header">
-                    <h4 class="modal-title">Chỉnh sửa</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Tên món ăn</label>
-                        <input value="${detail.name}" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Hình ảnh</label>
-                        <input value="${detail.image}" type="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Giá tiền</label>
-                        <input value="${detail.price}" type="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Mô tả</label>
-                        <textarea class="form-control" required>${detail.script}</textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" value="Save">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Product</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-danger" value="Delete">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 </body>
 </html>

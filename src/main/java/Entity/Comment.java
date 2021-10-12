@@ -6,19 +6,17 @@ public class Comment {
     private int uID;
     private String username;
     private String comment;
-    private int star;
 
     public Comment() {
 
     }
 
-    public Comment(int cmtID, int id, int uID, String username, String comment, int star) {
+    public Comment(int cmtID, int id, int uID, String username, String comment) {
         this.cmtID = cmtID;
         this.id = id;
         this.uID = uID;
         this.username = username;
         this.comment = comment;
-        this.star = star;
     }
 
     public int getCmtID() {
@@ -61,14 +59,6 @@ public class Comment {
         this.comment = comment;
     }
 
-    public int getStar() {
-        return star;
-    }
-
-    public void setStar(int star) {
-        this.star = star;
-    }
-
     @Override
     public String toString() {
         return "Comment{" +
@@ -77,7 +67,7 @@ public class Comment {
                 ", uID=" + uID +
                 ", username='" + username + '\'' +
                 ", comment='" + comment + '\'' +
-                ", star=" + star +
                 '}';
     }
 }
+

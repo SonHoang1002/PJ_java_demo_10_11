@@ -249,13 +249,12 @@ public class FoodDAO {
 
         }
     }
-
     public static List<Comment> getAllComment(String id) {
         List<Comment> list = new ArrayList<Comment>();
 
         try {
             Connection con = getConnection();
-            PreparedStatement ps = con.prepareStatement("select cmtID,id, comment.uID, comment, star, username from comment, account where comment.uID = account.uID  and id=?");
+            PreparedStatement ps = con.prepareStatement("select cmtID,id, comment.uID, comment, username from comment, account where comment.uID = account.uID  and id=?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -265,7 +264,6 @@ public class FoodDAO {
                 comment.setuID(rs.getInt("uID"));
                 comment.setUsername(rs.getString("username"));
                 comment.setComment(rs.getString("comment"));
-                comment.setStar(rs.getInt("star"));
                 list.add(comment);
             }
         } catch (Exception e) {
@@ -273,6 +271,18 @@ public class FoodDAO {
         }
         return list;
 
+    }
+    public void insertComment(int id, int uID, String comment){
+        try{
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("INSERT INTO comment (id, uID, comment ) VALUES (?,?,?)");
+            ps.setInt(1, id);
+            ps.setInt(2, uID);
+            ps.setString(3, comment);
+            ps.executeUpdate();
+        }catch (Exception e){
+
+        }
     }
 
 }

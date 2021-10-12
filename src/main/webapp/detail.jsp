@@ -304,21 +304,38 @@
     <p style="font-size: 40px">  Giới thiệu món ăn  </p><hr>
   </div>
   <div class="detail-content">${detail.script}</div>
-<hr>
+  <hr>
   <div class="container mt-5">
-    <div class="p-3 bg-white rounded">
-      <h6>Reviews</h6>
-      <div class="review mt-4">
-        <c:forEach items="${cmt}" var="a">
-          <div class="d-flex flex-row comment-user"><img class="rounded" src="https://cdn-icons-png.flaticon.com/512/1159/1159740.png" width="40">
-            <div class="ml-2">
-              <div class="d-flex flex-row align-items-center"><span class="name font-weight-bold">${a.username}</span><span class="dot"></span><span class="date">12 Aug 2020</span></div>
+    <div class="d-flex justify-content-center row">
+      <div class="col-md-8">
+        <div class="d-flex flex-column comment-section">
+          <h5>Reviews</h5>
+          <c:if test="${sessionScope.acc != null}">
+            <form action="addComment" method="post">
+              <div class="bg-light p-2">
+                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://cdn-icons-png.flaticon.com/512/1159/1159740.png" width="40"><textarea class="form-control ml-1 shadow-none textarea" name="comment"></textarea></div>
+                <div class="modal-footer">
+                  <input type="submit" class="btn btn-success" value="Post">
+                </div>
+              </div>
+            </form>
+          </c:if>
+          <c:if test="${sessionScope.acc == null}">
+            <div class="alert-danger" role="alert">
+              <p>Đăng nhập để review món ăn!</p>
             </div>
-          </div>
-          <div class="mt-2">
-            <p class="comment-text">${a.comment}</p>
-          </div>
-        </c:forEach>
+          </c:if>
+          <c:forEach items="${cmt}" var="a">
+            <div class="bg-white p-2">
+              <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://cdn-icons-png.flaticon.com/512/1159/1159740.png" width="40">
+                <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">${a.username}</span></div>
+              </div>
+              <div class="mt-2">
+                <p class="comment-text">${a.comment}</p>
+              </div>
+            </div>
+          </c:forEach>
+        </div>
       </div>
     </div>
   </div>
