@@ -144,8 +144,11 @@ public class FoodDAO {
                 return new Account(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getInt(5));
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8));
             }
         } catch (Exception e) {
 
@@ -163,8 +166,11 @@ public class FoodDAO {
                 return new Account(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getInt(5));
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8));
             }
         } catch (Exception e) {
 
@@ -175,11 +181,47 @@ public class FoodDAO {
     public void signup(String username, String password) {
         try {
             Connection con = getConnection();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO account (username, password, isSell, isAdmin) VALUES (?, ?, 0, 0);");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO account (username, password, soDT, avatar, email, isSell, isAdmin) VALUES (?, ?,'','','', 0, 0);");
             ps.setString(1, username);
             ps.setString(2, password);
             ps.executeUpdate();
         } catch (Exception e) {
+
+        }
+    }
+
+    public static Account getAccountByID(int uID) {
+        try {
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from account where uID = ?;");
+            ps.setInt(1, uID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Account(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8));
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+    public void editAcount( String username, String password, String phone, String avatar, String email){
+        try{
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("UPDATE account SET username=?, password=?, phone=?, avatar=?, email=?, isSell='1', isAdmin='1' WHERE uID=?");
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, phone);
+            ps.setString(4, avatar);
+            ps.setString(5, email);
+            ps.executeUpdate();
+        }catch (Exception e){
 
         }
     }

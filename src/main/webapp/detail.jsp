@@ -313,7 +313,7 @@
           <c:if test="${sessionScope.acc != null}">
             <form action="/addComment" method="post">
               <div class="bg-light p-2">
-                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://cdn-icons-png.flaticon.com/512/1159/1159740.png" width="40"><textarea class="form-control ml-1 shadow-none textarea" name="comment"></textarea></div>
+                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="${sessionScope.acc.avatar}" width="40"><textarea class="form-control ml-1 shadow-none textarea" name="comment"></textarea></div>
                 <div class="modal-footer">
                   <input type="submit" class="btn btn-success" value="Post">
                 </div>
@@ -327,7 +327,7 @@
           </c:if>
           <c:forEach items="${cmt}" var="a">
             <div class="bg-white p-2">
-              <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://cdn-icons-png.flaticon.com/512/1159/1159740.png" width="40">
+              <div class="d-flex flex-row user-info"><img class="rounded-circle" src="${sessionScope.acc.avatar}" width="40">
                 <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">${a.username}</span></div>
               </div>
               <div class="mt-2">

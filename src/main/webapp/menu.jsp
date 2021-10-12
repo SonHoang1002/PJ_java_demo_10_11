@@ -44,8 +44,7 @@
               Xin chào ${sessionScope.acc.username}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-              <li><a class="dropdown-item" href="#">Thiết lập tài khoản</a></li>
+              <li><a class="dropdown-item" href="/loadProfile">Thiết lập tài khoản</a></li>
               <li><hr class="dropdown-divider"></li>
               <c:if test="${sessionScope.acc.isAdmin == 1}">
                 <li><a class="dropdown-item" href="#">Quản lý người dùng</a></li>
