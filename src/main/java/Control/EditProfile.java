@@ -22,15 +22,15 @@ public class EditProfile extends HttpServlet {
         int uID = account.getuID();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String phone = request.getParameter("phone");
+        String soDT = request.getParameter("soDT");
         String avatar = request.getParameter("avatar");
         String email = request.getParameter("email");
-        /*String isSell = request.getParameter("isSell");
-        String isAdmin = request.getParameter("isAdmin");*/
+        String isSell = request.getParameter("isSell");
+        String isAdmin = request.getParameter("isAdmin");
 
 
         FoodDAO dao = new FoodDAO();
-        dao.editAcount(username,password,phone,avatar,email);
+        dao.editAcount(username,password,soDT,avatar,email,isSell, isAdmin);
         response.sendRedirect("/loadProfile");
 
     }

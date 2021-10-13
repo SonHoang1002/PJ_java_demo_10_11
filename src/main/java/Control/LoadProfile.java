@@ -23,6 +23,7 @@ public class LoadProfile extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("acc");
         int uID = account.getuID();
+
         FoodDAO dao = new FoodDAO();
         account = dao.getAccountByID(uID);
         request.setAttribute("profile",account);

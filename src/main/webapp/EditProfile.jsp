@@ -72,7 +72,7 @@
                     </div>
                     <div class="row mt-3">
                         Số điện thoại
-                        <div class="col-md-6"><input type="text" class="form-control" placeholder="phone" value="${profile.soDT}"></div>
+                        <div class="col-md-6"><input type="text" class="form-control" placeholder="soDT" value="${profile.soDT}"></div>
                     </div>
                     <div class="row mt-3">
                         Email
@@ -82,7 +82,7 @@
                         Ảnh đại diện
                         <div class="col-md-6"><input type="text" class="form-control" placeholder="avatar" value="${profile.avatar}"></div>
                     </div>
-                    <!--<div class="row mt-3">
+                    <div class="row mt-3">
                         Đăng ký bán hàng
                         <select name="" class="form-select" aria-label="Default select example">
                             <option value="${profile.isSell}==0">Không</option>
@@ -96,7 +96,6 @@
                             <option value="${profile.isAdmin}==1">Đăng ký</option>
                         </select>
                     </div>
-                    -->
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
                     <input type="submit" class="btn btn-success" value="Lưu thay đổi">
                 </form>

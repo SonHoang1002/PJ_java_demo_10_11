@@ -28,7 +28,7 @@ public class AddComment extends HttpServlet {
 
         FoodDAO dao = new FoodDAO();
         dao.insertComment(id, uID, comment);
-        request.getRequestDispatcher("/detail").forward(request,response);
+        request.getRequestDispatcher("/detail?id="+id).forward(request,response);
 
     }
 

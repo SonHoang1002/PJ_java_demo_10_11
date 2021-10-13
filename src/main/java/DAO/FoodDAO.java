@@ -211,15 +211,17 @@ public class FoodDAO {
         }
         return null;
     }
-    public void editAcount( String username, String password, String phone, String avatar, String email){
+    public void editAcount( String username, String password, String soDT, String avatar, String email, String isSell, String isAdmin){
         try{
             Connection con = getConnection();
-            PreparedStatement ps = con.prepareStatement("UPDATE account SET username=?, password=?, phone=?, avatar=?, email=?, isSell='1', isAdmin='1' WHERE uID=?");
+            PreparedStatement ps = con.prepareStatement("UPDATE account SET username=?, password=?, soDT=?, avatar=?, email=?, isSell=?, isAdmin=? WHERE uID=?");
             ps.setString(1, username);
             ps.setString(2, password);
-            ps.setString(3, phone);
+            ps.setString(3, soDT);
             ps.setString(4, avatar);
             ps.setString(5, email);
+            ps.setString(6, isSell);
+            ps.setString(7, isAdmin);
             ps.executeUpdate();
         }catch (Exception e){
 
@@ -296,7 +298,7 @@ public class FoodDAO {
 
         try {
             Connection con = getConnection();
-            PreparedStatement ps = con.prepareStatement("select cmtID,id, comment.uID, comment, username from comment, account where comment.uID = account.uID  and id=?");
+            PreparedStatement ps = con.prepareStatement("select cmtID,id, comment.uID, comment, username, avatar from comment, account where comment.uID = account.uID  and id=?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -305,6 +307,7 @@ public class FoodDAO {
                 comment.setId(rs.getInt("id"));
                 comment.setuID(rs.getInt("uID"));
                 comment.setUsername(rs.getString("username"));
+                comment.setAvatar(rs.getString("avatar"));
                 comment.setComment(rs.getString("comment"));
                 list.add(comment);
             }

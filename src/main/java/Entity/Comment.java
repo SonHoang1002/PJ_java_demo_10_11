@@ -5,17 +5,19 @@ public class Comment {
     private int id;
     private int uID;
     private String username;
+    private String avatar;
     private String comment;
 
     public Comment() {
 
     }
 
-    public Comment(int cmtID, int id, int uID, String username, String comment) {
+    public Comment(int cmtID, int id, int uID, String username, String avatar, String comment) {
         this.cmtID = cmtID;
         this.id = id;
         this.uID = uID;
         this.username = username;
+        this.avatar = avatar;
         this.comment = comment;
     }
 
@@ -51,6 +53,14 @@ public class Comment {
         this.username = username;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getComment() {
         return comment;
     }
@@ -66,6 +76,7 @@ public class Comment {
                 ", id=" + id +
                 ", uID=" + uID +
                 ", username='" + username + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", comment='" + comment + '\'' +
                 '}';
     }

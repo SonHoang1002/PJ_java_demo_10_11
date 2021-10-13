@@ -294,8 +294,7 @@
         </div>
         Number:      <input style="margin-left: 20px;" aria-label="quantity" class="input-qty" max="1000" min="1" name="" type="number" value="1"><br>
         <div id="button" style="margin-top: 20px;"><hr>
-          <button id="btn-add-cart" type="button" class="btn btn-success btn-cart" style="margin-right: 15px;">Add To Cart</button>
-          <button id="btn-order" type="button" class="btn btn-success">Order</button>
+          <button id="btn-add-cart" type="button" class="btn btn-success btn-cart" style="margin-right: 15px;">Thêm vào thực đơn</button>
         </div>
       </div>
     </div>
@@ -327,7 +326,7 @@
           </c:if>
           <c:forEach items="${cmt}" var="a">
             <div class="bg-white p-2">
-              <div class="d-flex flex-row user-info"><img class="rounded-circle" src="${sessionScope.acc.avatar}" width="40">
+              <div class="d-flex flex-row user-info"><img class="rounded-circle" src="${a.avatar}" width="40">
                 <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">${a.username}</span></div>
               </div>
               <div class="mt-2">
@@ -341,5 +340,604 @@
   </div>
 </main>
 <jsp:include page="footer.jsp"></jsp:include>
+<style>
+  /* modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    margin: 0 auto;
+    width: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: .3rem;
+    outline: 0;
+
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    display: flex;
+    border-top: 1px solid #aaaaaa;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-top: 1px solid #aaaaaa;
+    padding: 1rem;
+  }
+
+  .modal-footer>:not(:first-child) {
+    margin-left: .25rem;
+  }
+
+  .btn {
+    cursor: pointer;
+    outline: none;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: all .2s ease-in-out;
+  }
+
+  .btn-secondary {
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background-color: #0275d8;
+    border-color: #0275d8;
+  }
+
+  .modal-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #aaaaaa;
+    padding: 1rem;
+  }
+
+  h5.modal-title {
+    font-size: 1.5rem;
+  }
+
+  .close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #cart {
+    font-size: 15px;
+    color: #fff;
+    background: #c7b200;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    outline: none;
+    margin-left: 1rem;
+    padding: 12px;
+    cursor: pointer;
+  }
+
+  #cart:hover {
+    border-color: #fff;
+  }
+  /* cart */
+  .cart-header {
+    font-weight: bold;
+    font-size: 1.25em;
+    color: #333;
+  }
+
+  .cart-column {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-right: 1.5em;
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .cart-row {
+    display: flex;
+  }
+
+  .cart-item {
+    width: 45%;
+  }
+
+  .cart-price {
+    width: 20%;
+    font-size: 1.2em;
+    color: #333;
+  }
+
+  .cart-quantity {
+    width: 35%;
+  }
+
+  .cart-item-title {
+    color: #333;
+    margin-left: .5em;
+    font-size: 1.2em;
+  }
+
+  .cart-item-image {
+    width: 75px;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .btn-danger {
+    color: white;
+    background-color: #EB5757;
+    border: none;
+    border-radius: .3em;
+    font-weight: bold;
+  }
+
+  .btn-danger:hover {
+    background-color: #CC4C4C;
+  }
+
+  .cart-quantity-input {
+    height: 34px;
+    width: 50px;
+    border-radius: 5px;
+    border: 1px solid #56CCF2;
+    background-color: #eee;
+    color: #333;
+    padding: 0;
+    text-align: center;
+    font-size: 1.2em;
+    margin-right: 25px;
+  }
+
+  .cart-row:last-child {
+    border-bottom: 1px solid black;
+  }
+
+  .cart-row:last-child .cart-column {
+    border: none;
+  }
+
+  .cart-total {
+    text-align: end;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  .cart-total-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: black;
+    margin-right: 20px;
+  }
+
+  .cart-total-price {
+    color: #333;
+    font-size: 1.1em;
+  }
+
+  .hotline-phone-ring-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999999;
+  }
+
+  .hotline-bar {
+    position: absolute;
+    background: rgba(230, 8, 8, 0.75);
+    height: 40px;
+    width: 180px;
+    line-height: 40px;
+    border-radius: 3px;
+    padding: 0 10px;
+    background-size: 100%;
+    cursor: pointer;
+    z-index: 9;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.1);
+    left: 33px;
+    bottom: 37px;
+  }
+  .hotline-bar > a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    text-indent: 50px;
+    display: block;
+    letter-spacing: 1px;
+    line-height: 40px;
+    font-family: Arial;
+  }
+  @media only screen and (min-width:590px)  and (max-width: 990px) {
+    .button{
+      display:flex;
+      flex-direction:column;
+      align-items: center;
+      text-align: center;
+      margin: auto;
+    }
+    .button #btn-add-cart{
+      margin-left: 13px;
+      margin-bottom: 10px;
+    }
+
+  }
+
+
+  .nav-item:hover{
+    background-color:cornflowerblue;
+  }
+  @media (min-width:980px) and (max-width:1024px) {
+    .nav-link{
+      height: 100%;
+    }
+  }
+  .float-contact {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 99999;
+  }
+  .chat-zalo {
+    background: #8eb22b;
+    border-radius: 20px;
+    padding: 0 18px;
+    color: white;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .chat-face {
+    background: #125c9e;
+    border-radius: 20px;
+    padding: 0 18px;
+    color: white;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .float-contact .hotline {
+    background: #d11a59!important;
+    border-radius: 20px;
+    padding: 0 18px;
+    color: white;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .chat-zalo a, .chat-face a, .hotline a {
+    font-size: 15px;
+    color: white;
+    font-weight: 400;
+    text-transform: none;
+    line-height: 0;
+  }
+  @media (max-width: 549px){
+    .float-contact{
+      display:none
+    }
+  }
+
+  footer{
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 50px 100px;
+    background: #111;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  footer .container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  footer .container .noi-dung{
+    margin-right: 30px;
+  }
+  footer  .container .noi-dung.about{
+    width:40%;
+  }
+  footer .container .noi-dung.about h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  footer .container .noi-dung.about h2:before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #f00;
+  }
+  footer .container .noi-dung.about p{
+    color: #999;
+  }
+  /*Thiết Lập Cho Thành Phần Icon Mạng Xã Hội*/
+  .social-icon{
+    margin-top: 20px;
+    display: flex;
+  }
+  .social-icon li {
+    list-style: none;
+  }
+  .social-icon li a{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .social-icon li a:hover{
+    background: #f00;
+  }
+  .social-icon li a .fa{
+    color: #fff;
+    font-size: 20px;
+  }
+  .links h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  .links h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  .links h2::before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #f00;
+  }
+  .links{
+    position: relative;
+    width: 25%;
+  }
+  .links ul li{
+    list-style: none;
+  }
+  .links ul li a{
+    color: #999;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  .links ul li a:hover{
+    color: #fff;
+  }
+  .contact h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  .contact h2::before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #f00;
+  }
+  .contact{
+    width: calc(35% - 60px);
+    margin-right: 0 !important;
+  }
+  .contact .info{
+    position: relative;
+  }
+  .contact .info li{
+    display: flex;
+    margin-bottom: 16px;
+  }
+  .contact .info li span:nth-child(1) {
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  .contact .info li span{
+    color: #999;
+  }
+  .contact .info li a{
+    color: #999;
+    text-decoration: none;
+  }
+  @media  (max-width: 768px){
+    footer{
+      padding: 40px;
+    }
+    footer .container{
+      flex-direction: column;
+    }
+    footer .container .noi-dung{
+      margin-right: 0;
+      margin-bottom: 40px;
+    }
+    footer .container, .noi-dung.about, .links, .contact{
+      width: 100%;
+    }
+  }
+
+</style>
+<script>
+  // Modal
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("cart");
+  var close = document.getElementsByClassName("close")[0];
+  var close_footer = document.getElementsByClassName("close-footer")[0];
+  var order = document.getElementsByClassName("order")[0];
+  btn.onclick = function () {
+    modal.style.display = "block";
+  }
+  close.onclick = function () {
+    modal.style.display = "none";
+  }
+  close_footer.onclick = function () {
+    modal.style.display = "none";
+  }
+  order.onclick = function () {
+    alert("Cảm ơn bạn đã thanh toán đơn hàng")
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // xóa cart
+  var remove_cart = document.getElementsByClassName("btn-danger");
+  for (var i = 0; i < remove_cart.length; i++) {
+    var button = remove_cart[i]
+    button.addEventListener("click", function () {
+      var button_remove = event.target
+      button_remove.parentElement.parentElement.remove()
+      updatecart()
+    })
+  }
+  // thay đổi số lượng sản phẩm
+  var quantity_input = document.getElementsByClassName("cart-quantity-input");
+  for (var i = 0; i < quantity_input.length; i++) {
+    var input = quantity_input[i];
+    input.addEventListener("change", function (event) {
+      var input = event.target
+      if (isNaN(input.value) || input.value <= 0) {
+        input.value = 1;
+      }
+      updatecart()
+    })
+  }
+  // update cart
+  function updatecart() {
+    var cart_item = document.getElementsByClassName("cart-items")[0];
+    var cart_rows = cart_item.getElementsByClassName("cart-row");
+    var total = 0;
+    for (var i = 0; i < cart_rows.length; i++) {
+      var cart_row = cart_rows[i]
+      var price_item = cart_row.getElementsByClassName("cart-price ")[0]
+      var quantity_item = cart_row.getElementsByClassName("cart-quantity-input")[0]
+      var price = parseFloat(price_item.innerText)
+      var quantity = quantity_item.value
+      total = total + (price * quantity)
+    }
+    document.getElementsByClassName("cart-total-price")[0].innerText = total + 'VNĐ'
+
+  }
+
+
+
+
+
+  //them vào giỏ
+  var add_cart = document.getElementsByClassName("btn-cart");
+  for(var i = 0;i<add_cart.length;i++){
+    var add = add_cart[i]
+    add.addEventListener("click",function(event){
+      var button = event.target
+      var product = button.parentElement.parentElement
+      var img = product.parentElement.getElementsByClassName("img-prd")[0].src
+      var title = product.getElementsByClassName("content-product-h3")[0].innerText
+      var price = product.getElementsByClassName("money")[0].innerText
+      addItemToCart(title, price, img)
+      modal.style.display="block"
+      updatecart()
+
+    })
+  }
+  function addItemToCart(title, price, img){
+    var cartRow = document.createElement('div')
+    cartRow.classList.add('cart-row')
+    var cartItems = document.getElementsByClassName('cart-items')[0]
+    var cart_title = cartItems.getElementsByClassName('cart-item-title')
+    for (var i = 0; i < cart_title.length; i++) {
+      if (cart_title[i].innerText == title) {
+        alert('Sản Phẩm Đã Có Trong Giỏ Hàng')
+        return
+      }
+    }
+    var cartRowContents = `
+  <div class="cart-item cart-column">
+      <img class="cart-item-image" src="${img}" width="100" height="100">
+      <span class="cart-item-title">${title}</span>
+  </div>
+  <span class="cart-price cart-column">${price}</span>
+  <div class="cart-quantity cart-column">
+      <input class="cart-quantity-input" type="number" value="1">
+      <button class="btn btn-danger" type="button">Xóa</button>
+  </div>`
+    cartRow.innerHTML = cartRowContents
+    cartItems.append(cartRow)
+    cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', function () {
+      var button_remove = event.target
+      button_remove.parentElement.parentElement.remove()
+      updatecart()
+    })
+    cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', function (event) {
+      var input = event.target
+      if (isNaN(input.value) || input.value <= 0) {
+        input.value = 1;
+      }
+      updatecart()
+    })
+  }
+
+</script>
 </body>
 </html>
