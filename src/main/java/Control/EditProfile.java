@@ -18,8 +18,9 @@ public class EditProfile extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("acc");
-        int uID = account.getuID();
+        //Account account = (Account) session.getAttribute("acc");
+        //int uID = account.getuID();
+        String uID = request.getParameter("uID");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String soDT = request.getParameter("soDT");
@@ -30,7 +31,7 @@ public class EditProfile extends HttpServlet {
 
 
         FoodDAO dao = new FoodDAO();
-        dao.editAcount(username,password,soDT,avatar,email,isSell, isAdmin);
+        dao.editAcount(username,password,soDT,avatar,email,isSell, isAdmin, uID);
         response.sendRedirect("/loadProfile");
 
     }

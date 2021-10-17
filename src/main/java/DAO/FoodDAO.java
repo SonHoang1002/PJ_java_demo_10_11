@@ -211,7 +211,7 @@ public class FoodDAO {
         }
         return null;
     }
-    public void editAcount( String username, String password, String soDT, String avatar, String email, String isSell, String isAdmin){
+    public void editAcount( String username, String password, String soDT, String avatar, String email, String isSell, String isAdmin, String uID){
         try{
             Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement("UPDATE account SET username=?, password=?, soDT=?, avatar=?, email=?, isSell=?, isAdmin=? WHERE uID=?");
@@ -222,6 +222,7 @@ public class FoodDAO {
             ps.setString(5, email);
             ps.setString(6, isSell);
             ps.setString(7, isAdmin);
+            ps.setString(8, uID);
             ps.executeUpdate();
         }catch (Exception e){
 
