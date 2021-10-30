@@ -1,0 +1,98 @@
+drop database  foodweb;
+create database foodweb;
+use foodweb;
+
+/*create table seller(
+                       sell_id int PRIMARY KEY AUTO_INCREMENT,
+                       tenNhaHang nvarchar(700) null,
+                       diaChi nvarchar(7000),
+                       soDT nvarchar(12),
+                       uID int references account(uID)
+);
+
+INSERT INTO seller VALUES (1, N'Hà Nội Xưa', N'100 Xã Đàn, Đống Đa, Hà Nội', '0987654321',3);
+INSERT INTO seller VALUES (2, N'Góc Hà Thành', N'77 Nguyễn Trãi, Thanh Xuân, Hà Nội', '0987654320',1);
+
+*/
+drop table food
+create table food
+(
+    id int not null PRIMARY KEY AUTO_INCREMENT,
+    name nvarchar(7000) null,
+    image nvarchar(7000) null,
+    price float null,
+    script nvarchar(7000) null,
+    uID int references account(uID),
+    cID int references category(cID)
+);
+INSERT INTO food VALUES (1, N'Phở bò Hà Nội', N'https://media.ex-cdn.com/EXP/media.giadinhvietnam.com/files/content/2021/04/11/pho-bo-ha-noi-2-1650454.jpg', 50000, N'Nguồn gốc của món phở bắt đầu từ khoảng đầu thế kỷ 20, tại Hà Nội và Nam Định. Đây cũng là hai địa điểm có loại phở truyền thống ngon nhất và nổi tiếng nhất: phở Hà Nội và phở bò Nam Định. Đặc điểm chung của phở đó là một món ăn làm từ sợi phở, có nước súp, ăn cùng thịt bò hoặc gà cùng các gia vị như hành. Sợi phở: là một loại noodle được làm từ gạo, có màu trắng, dẹt, to bản Nước dùng: Đây được xem là tinh hoa của món phở, với công đoạn chế biến cầu kỳ, tỉ mỉ. Đặc trưng của nước dùng là xương ống ninh nhừ, kết hợp cùng nhiều loại gia vị như gừng, củ hành nước; một số nơi kết hợp thêm cả thảo quả, hoa hồi, đinh hương, địa sâm. Theo món phở truyền thống thì nước dùng không thể thiếu đuôi bò. Thịt: Phở có hai loại phở chính là phở bò và phở gà, trong đó phở bò là loại phở truyền thống đầu tiên. Với phở bò, có một số phương pháp làm thịt bò phổ biến là bò tái, bò chín, bò tái chín với các loại thịt là nạm, gàu, gân. Gia vị: Gia vị đi kèm phở phổ biến là hành, chanh, giấm, tiêu, mắm, ớt...Bắt nguồn từ miền Bắc, phở đã trở thành món ăn phổ biến của người Việt thời Đông Dương tới tận bây giờ. Đây là món ăn vô cùng đặc sắc của Việt Nam và hiện nay vẫn phổ biến ở Việt Nam. Chúng ta có thể tìm thấy những cửa hàng phở gia truyền nổi tiếng, chuỗi nhà hàng phở hiện đại hoặc các cửa hàng ăn bún-phở bình dân ở mọi miền đất nước. Chính vì thế, phở được xem là món ăn "quốc hồn quốc túy", đại diện cho ẩm thực Việt Nam và đứng đầu trong top món ăn truyền thống Việt Nam ngon và nổi tiếng nhất',1,5);
+INSERT INTO food VALUES (2, N'Bánh cuốn', N'https://toplist.vn/images/800px/banh-cuon-274178.jpg', 20000, N'Và cái tên cuối cùng không thể thiếu trong Top 40 món ăn truyền thống Việt Nam ngon và nổi tiếng nhất, đó là bánh cuốn. Đây cũng là một trong những món ăn lâu đời nhất trong các món ăn dân gian Việt Nam. Trong sách An Nam chí lược cũng có ghi chú "Vào tết Hàn thực, đem bánh cuốn tặng nhau". Như vậy, bánh cuốn là một món ăn phổ biến chốn cung đình từ thời Trần và nếu như theo vua Trần Nhân Tông thì món ăn này là phong tục cũ từ tận thời An Nam truyền lại. Bánh cuốn được làm bằng cách tráng bột gạo mỏng thành vỏ bánh, khi vỏ bánh bắt đầu kết dính lại thì đổ nhân gồm thịt băm, mộc nhĩ, nấm hương, hành khô. Sau đó cuộn bánh lại, tạo thành chiếc bánh cuốn thơm ngon, đẹp mắt. Khi tráng xong, bánh cuốn sẽ được bày ra đĩa, rắc hành khô, ăn cùng rau sống, chả lợn và chấm nước mắm. Nước mắm chấm bánh cuốn thường được pha nhạt hơn và pha thêm dưa góp, tỏi, ớt, tiêu... Ngày nay, bánh cuốn vẫn là món ăn đặc trưng ở miền Bắc, đặc biệt là ở Hà Nội, trong đó, món bánh cuốn Thanh Trì là nổi tiếng nhất.',1,3)
+INSERT INTO food VALUES (3, N'Bún bò Huế', N'https://vnn-imgs-f.vgcloud.vn/2019/03/15/16/pho-bo.jpg', 50000, N'Là món ăn đặc trưng của "cố đô" Huế. Bún bò Huế là món bún chan, khác với bún bò ở miền Bắc, thường có nước dùng ngọt hơn, và không chỉ có thịt bò mà còn có chân giò heo, mọc, tiết... Một món bún bò khác cũng nổi tiếng, đó là bún bò Nam Bộ.',1,5)
+INSERT INTO food VALUES (4, N'Bún chả', N'https://toplist.vn/images/800px/bun-274159.jpg', 50000, N'Đây là món ăn đặc sản của Hà Nội và miền Bắc Việt Nam, có độ nổi tiếng không thua kém gì phở. Nếu như phở được chọn làm món ăn đại diện cho ẩm thực Việt, thì bún chả lại là món ăn được nhiều tạp chí và chuyên gia ẩm thực đánh giá cao nhất, cho là món ăn ngon nhất Việt Nam. Bún chả là món bún ăn kèm với chả lợn nướng (thường là chả băm hoặc chả thịt miếng), chả được nướng trên vỉ than hồng dậy mùi thơm, ăn kèm với nước chấm và các loại rau sống. Mới đây, cựu tổng thống Mỹ Obama cùng chuyên gia ẩm thực người Mỹ đã đến ăn bún chả ở Hà Nội, càng khiến món bún chả trở nên nổi tiếng hơn nữa.',1,5)
+INSERT INTO food VALUES (5, N'Bún thang', N'https://toplist.vn/images/800px/bun-512816.jpg', 50000, N'Là món cầu kỳ, công phu nên thường chỉ có mặt trong những tiệc thịnh soạn của người Hà Nội. Nước dùng bún thang được nấu từ nước luộc gà, xương lợn, khi đun vớt bọt liên tục để nước được trong, rồi thả vào một xâu tôm he khô. Trứng tráng thật mỏng thái sợi, giò lụa trắng mềm cũng thái chỉ.',1,5)
+INSERT INTO food VALUES (6, N'Bánh mì', N'https://toplist.vn/images/800px/ba-le-banh-mi-tho-nhi-ky-665399.jpg', 20000, N'Có nguồn gốc từ bánh mì của Pháp mang sang, người Việt Nam đã rạch bụng ổ bánh mì và nhồi vào đó nhiều loại nhân khác nhau, tạo nên một loại bánh mì Việt Nam đặc trưng, khác biệt so với bánh mì Pháp, vốn dùng để cắt lát ăn với bơ sữa. Nhân bánh mì rất đa dạng: chả lợn, giò lợn, thịt lợn nướng, trứng tráng, xúc xích, lạp xưởng... tuy nhiên, nổi tiếng nhất chính là bánh mì nhân patê. Patê là một món ăn xay nguyễn từ gan lợn đun nóng, khi kẹp bánh mì thường được đi kèm với rau sống.',1,3)
+INSERT INTO food VALUES (7, N'Bánh xèo', N'https://toplist.vn/images/800px/banh-xeo-275257.jpg', 40000, N'Bánh xèo là món ăn vặt phổ biến ở khu vực Trung bộ, từ Nghệ An vào đến Huế. Đây là món bánh bột, cuộn bọc nhân gồm có tôm, thịt, giá đỗ... và nướng chín trong chảo ngập dầu. Vỏ bánh xèo là bột mì trộn với nghệ để tạo màu vàng bắt mắt, cùng đó là nước cốt dừa để tạo hương vị cho món ăn. Bánh xèo ở mỗi vùng lại khác nhau, nhân có thể có thêm trứng, rau sống hoặc những thứ khác. Khác với phở, bún, bánh chưng, bánh mì có thể ăn thay bữa chính, bánh xèo thường để ăn chơi, chấm với nước chấm hoặc nước tương. Ngày nay, bánh xèo khá phổ biến ở mọi tỉnh thành Việt Nam như một món ẩm thực đường phố đặc trưng.',2,3)
+INSERT INTO food VALUES (8, N'Bánh bèo', N'https://toplist.vn/images/800px/banh-beo-507292.jpg', 30000, N'Bánh bèo là một món bánh rất thịnh hành ở miền Trung, ngoài ra cũng phổ biến ở miền Nam Việt Nam. Bánh bèo đã trở thành một nét đẹp trong văn hóa ẩm thực của người dân Viêt Nam từ bao đời nay. Bột đổ làm bánh bèo sao cho khéo để cho bánh thật mỏng và hình dáng giống như một cánh bèo rồi xếp vào mê (20 chén mỗi mê) đem hấp hơi (hấp cách thủy). Đến lúc bánh chín, cho thêm gia vị lên trên. Bánh bèo ngon là nhờ ở nhân tôm chấy và nhất là nước chấm đặc biệt. Nước mắm hòa với mỡ, đường, tỏi, ớt và nấu từ tôm tươi nên vừa có vị ngọt và béo. Khi ăn bánh bèo không sử dụng đũa mà bằng que tre vót mỏng như một mái chèo nhỏ.',2,3)
+INSERT INTO food VALUES (9, N'Cơm tấm', N'https://www.taidanang.com/wp-content/uploads/2019/08/9-quan-com-tam-da-nang-dan-sanh-an-phai-biet-7.jpg', 70000, N'Cơm tấm thường được ăn với 4 món chính: sườn lợn nướng, bì lợn, chả, trứng ốp la. Trên nền cơm tấm trắng đang bốc khói là màu vàng của miếng sườn nướng, màu trắng đục của những sợi bì dai mềm, miếng chả được đặt vuông vắn bên cạnh hình tròn của trứng ốp la vừa chín tới. Món này ăn kèm với cà chua, dưa leo xắt lát mỏng, cà rốt hoặc củ cải trắng ngâm giấm, đồng thời không thể thiếu được chén nước mắm được pha theo bí quyết riêng của từng quán, làm cho món ăn thêm thơm ngon, hấp dẫn.',2,7)
+INSERT INTO food VALUES (10, N'Nem rán', N'https://i-vnexpress.vnecdn.net/2020/01/22/image001-1579663155-7014-1579664015.jpg', 80000, N'Nem rán (người miền Trung gọi là "ram nướng" còn người miền Nam gọi là "chả giò") là một món ăn truyền thống của người Việt, thường hay được làm vào các dịp cổ, hoặc cúng bái gia tiên, đặc biệt là dịp Tết. Nguồn gốc của nem rán có lẽ bắt nguồn tử ẩm thực Trung Hoa, đặc biệt là ẩm thực Hong Kong nhưng món nem rán ở Việt Nam đã có nhiều khác biệt. Nem rán truyền thống là món cuốn, với nhân là thịt lợn băm nhuyễn, trộn chung với miến, nấm, mộc nhĩ... rồi cuộn trong bánh đa nem làm từ bột, rồi chiên giòn. Ngày nay, có nhiều món nem rán được biến tấu khác đi, trong đó có nem hải sản với nhân hải sản (tôm, cua, cá) với vỏ tẩm bột chiên giòn. Nem rán được xem là món ăn gia đình phổ biến, hầu như mọi nhà đều ăn nem rán tương đối thường xuyên. Nem rán có thể ăn cùng với cơm hoặc bún, người miền Nam có món "bún chả giò", ăn bún kèm với chả giò.',1,1)
+INSERT INTO food VALUES (11, N'Gỏi cuốn', N'https://www.nhahangquangon.com/wp-content/uploads/2016/10/huong-dan-lam-goi-cuon-tom-thit-cham-mam-nem-2.jpg', 70000, N'Gỏi cuốn là món ăn phổ biến ở ca ba miền Bắc, Trung, Nam, nhưng phổ biến nhất là ở Nam Bộ. Gần như không có công thức cố định cho gỏi cuốn bởi mỗi vùng miền lại chế biến khác nhau, nhưng các thành phần chung bao gồm bánh tráng và nhân. Trong đó, nhân thường là rau sống, bún, thịt (bò, heo), chả, giò, trứng và đặc biệt, gỏi cuốn ngon nhất là có nguyên một con tôm bên trong nhân. Món gỏi cuốn ăn chấm với nước tương, nước mắm hoặc nước sốt, thường để ăn khai vị hoặc nhậu rượu bia. Gỏi cuốn được CNN xếp thứ 7 trong 40 món ăn ngon nhất của ẩm thực Việt Nam và cũng xếp thứ 7 trong Top 40 món ăn truyền thống Việt Nam ngon và nổi tiếng nhất.',2,7)
+INSERT INTO food VALUES (12, N'Cơm cháy', N'https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/01-DSVM-Ph%C6%B0%C6%A1ng/33.%20c%C6%A1m%20ch%C3%A1y%20Ninh%20B%C3%ACnh/dac-san-com-chay-ninh-binh-mon-an-dan-da-cuc-ngon-co-tu-100-nam-1.jpg', 60000, N'Món cơm cháy hấp dẫn thực khách gồm: cơm cháy, thịt bò hay tim, cật lợn xào với rau như hành tây, nấm rơm, cà rốt, cà chua và các loại nước chấm ăn kèm. Để cơm được ngon thì người ta dùng gạo nếp hương, hạt gạo tròn và trong. Khi nấu tốt nhất là cho vào nồi gang và dùng than củi. Cơm cháy lấy ra xong phải phơi nắng tự nhiên hai, ba nắng thì mới đạt lúc ăn mới chiên giòn. Miếng cơm cháy được chấm với nước sốt sóng sánh vị của nước mắm mỡ hành, ruốc (chà bông) hoặc tương nếp.', 1,1)
+INSERT INTO food VALUES (13, N'Bánh đa cua', N'https://thucthan.com/media/2018/05/banh-da-cua/cach-nau-banh-da-cua.jpg', 50000, N'Bánh đa cua một món ăn mộc mạc mà thân thiết của người dân đất cảng Hải Phòng. Một bát bánh đa cua ngon, hấp dẫn phải hội tụ đủ 5 màu: màu nâu hồng của gạch cua, màu bánh đa nâu sậm, màu xanh mướt của rau nhút, rau muống, hành lá, màu đỏ tươi nơi trái ớt và vàng rộm của hành khô. Bây giờ rất nhiều nơi có bán bánh đa cua, tuy nhiên nếu ăn bánh đa cua Hải Phòng người ăn sẽ thấy khác. Có thể đó là "hương vị quê hương" nhưng có một sự thật là nếu chỉ có bánh đa đỏ và cua đồng thì không thể tạo ra hương vị bánh đa cua Hải Phòng vì nó còn sử dụng một số bí quyết đặc trưng bao gồm: bí quyết làm bánh đa đỏ và bí quyết nấu món canh bánh đa. Bánh đa cua được bán khắp nơi ở Hải Phòng, tuy nhiên, những quán ngon chỉ bán 1 buổi: sáng, chiều hoặc đêm, có thể đó là một cách giữ khách của người bán nhưng làm khó cho những thực khách phương xa vì họ khó mà kiếm được quán ngon nếu không thông thạo Hải Phòng.',1,3)
+INSERT INTO food VALUES (14, N'Súp lươn', N'https://nghienbep.com/media/101702876_1306640899526811_3930744358378143744_n.jpg_nc_cat102_nc_sid07e735_nc_ohcH6WhI-G3KiIAX9dz7Ou_nc_htscontent.fhan2-1.fnaoha4e55ff3aa90847614b0e8dc7782cc86oe5EF9DA54-e1591344373792.jpeg', 70000, N'Thịt lươn sau khi làm sạch sẽ được xào chung với nghệ, ớt, tiêu xay. Nước dùng được ninh từ xương lợn, bò, xương cá và xương lươn. Đặc biệt không thể thiếu hành tăm - thứ hành chỉ có ở Nghệ An, Hà Tĩnh. Súp lươn thường ăn kèm với bánh mì hoặc bánh mướt (giống bánh cuốn nhưng người ta không cuốn lại và không có nhân). Bánh mướt được tráng mỏng, không nhân. Sau đó cắt thành những miếng nhỏ vừa ăn.',1,2)
+select*from food
+
+drop table account
+create table account(
+                        uID int not null PRIMARY KEY AUTO_INCREMENT,
+                        username char(100) not null,
+                        password char(100) not null,
+                        soDT char(10),
+                        avatar char(100),
+                        email char(100),
+                        isSell int,
+                        isAdmin int
+
+);
+INSERT INTO account VALUES (1, 'ngoc', '123','0987654321','https://i.pinimg.com/564x/11/e4/ed/11e4ede4f45b23ef42cbe3f72baaed81.jpg','ngoc@gmail.com', 1, 1);
+INSERT INTO account VALUES (2, 'linh', '123','0987654321','https://i.pinimg.com/564x/11/e4/ed/11e4ede4f45b23ef42cbe3f72baaed81.jpg','ngoc@gmail.com', 1, 1);
+INSERT INTO account VALUES (3, 'yen', '123','0987654321','https://i.pinimg.com/564x/11/e4/ed/11e4ede4f45b23ef42cbe3f72baaed81.jpg','ngoc@gmail.com', 1, 1);
+INSERT INTO account VALUES (4, 'chi', '123','0987654321','https://i.pinimg.com/564x/11/e4/ed/11e4ede4f45b23ef42cbe3f72baaed81.jpg','ngoc@gmail.com', 1, 0);
+INSERT INTO account VALUES (5, 'huong', '123','0987654321','https://i.pinimg.com/564x/11/e4/ed/11e4ede4f45b23ef42cbe3f72baaed81.jpg','ngoc@gmail.com', 0, 1);
+UPDATE account SET isSell=1 where uID=2
+INSERT INTO account VALUES (2, 'pthl', '000', 1, 0);
+INSERT INTO account (username, password, isSell, isAdmin) VALUES ('pthl', '000', 1, 0);
+
+SELECT*FROM account
+
+create table category(
+                         cID int PRIMARY KEY AUTO_INCREMENT,
+                         cname nvarchar(50) not null ,
+                         sell_ID int references seller(sell_id)
+)
+
+INSERT INTO category VALUES (1,N'Món chiên - rán',1);
+INSERT INTO category VALUES (2,N'Món canh',1);
+INSERT INTO category VALUES (3,N'Món bánh',1);
+INSERT INTO category VALUES (4,N'Món bún - phở',1);
+INSERT INTO category VALUES (5, N'Khác',1)
+select * from category where cid= 2
+
+INSERT INTO food (name, image, price, script, cID, uID) VALUES ('a','b',200,'d',1,1)
+
+drop table comment
+create table comment(
+                        cmtID int PRIMARY KEY AUTO_INCREMENT,
+                        id int references food(id),
+                        uID int references account(uID) ,
+                        comment nvarchar(7000) not null
+)
+
+INSERT INTO comment (cmtID,id, uID, comment) VALUES (1,1,1,N'Ngon quá ạ <3')
+INSERT INTO comment (cmtID,id, uID, comment) VALUES (8,1,2,N'Good good!!!')
+INSERT INTO comment (id, uID, comment) VALUES (1,3,N'Tuyệt')
+INSERT INTO comment (id, uID, comment) VALUES (2,3,N'Ngon quá ạ <3')
+INSERT INTO comment (cmtID,id, uID, comment) VALUES (5,3,1,N'Ngon quá ạ <3')
+INSERT INTO comment (cmtID,id, uID, comment) VALUES (6,5,1,N'Ngon quá ạ <3')
+INSERT INTO comment (cmtID,id, uID, comment) VALUES (7,4,1,N'Ngon quá ạ <3')
+
+select*from comment
