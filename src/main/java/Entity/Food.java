@@ -1,6 +1,8 @@
 package Entity;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable {
     int id;
     String name;
     String image;
