@@ -11,68 +11,57 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "AddToCartControl",urlPatterns = "/addtoCart")
+@WebServlet(name = "AddToCartControl",urlPatterns = "/add-to-cart")
 public class AddToCartControl extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    @SuppressWarnings("unchecked")
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
         response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("id");
-        FoodDAO dao = new FoodDAO();
-        Food food = dao.getFoodByID(id);
+        try(PrintWriter out = response.getWriter()) {
+            ArrayList<Item> cartList = new ArrayList<>();
 
-        HttpSession session = request.getSession();
-        Object obj = session.getAttribute("cart");// luu tam vao session
-        if (obj == null) {// tao moi
-            // Tao mat hang
-            Item item = new Item();
-            item.setFood(food);
-            item.setQuantity(1);
-            item.setUnitPrice(food.getPrice());
-            // gio hang co nhieu mat hang
-            Map<String, Item> map = new HashMap<>();
-            map.put(id, item);// them mat hang vao ds
+            int id = Integer.parseInt(request.getParameter("id"));
+            Item i = new Item();
+            i.setId(id);
+            i.setQuantity(1);
 
-            session.setAttribute("cart", map);// luu tam vao session
-        } else {
-            Map<String, Item> map = (Map<String, Item>) obj;
-
-            Item item = map.get(id);
-
-            if (item == null) {
-                item = new Item();
-                item.setFood(food);
-                item.setQuantity(1);
-                item.setUnitPrice(food.getPrice());
-
-                map.put(id, item);
+            HttpSession session = request.getSession();
+            ArrayList<Item> item_list = (ArrayList<Item>) session.getAttribute("cart-list");
+            if (item_list == null) {
+                cartList.add(i);
+                session.setAttribute("cart-list", cartList);
+                response.sendRedirect("/");
             } else {
+                cartList = item_list;
 
-                item.setQuantity(item.getQuantity() + 1);
+                boolean exist = false;
+                for (Item it : item_list) {
+                    if (it.getId() == id) {
+                        exist = true;
+                        out.println("<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>");
+                    }
+                }
+
+                if (!exist) {
+                    cartList.add(i);
+                    response.sendRedirect("/");
+                }
             }
+        }catch(Exception e) {
 
-            session.setAttribute("cart", map);// luu tam vao session
         }
-
-        response.sendRedirect(request.getContextPath() + "/cart");
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
 }
+
+

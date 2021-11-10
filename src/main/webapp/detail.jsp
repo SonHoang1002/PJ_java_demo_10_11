@@ -294,7 +294,7 @@
         </div>
         Number:      <input style="margin-left: 20px;" aria-label="quantity" class="input-qty" max="1000" min="1" name="" type="number" value="1"><br>
         <div id="button" style="margin-top: 20px;"><hr>
-          <button id="btn-add-cart" type="button" class="btn btn-success btn-cart" style="margin-right: 15px;">Thêm vào thực đơn</button>
+          <button id="btn-add-cart" type="button" class="btn btn-success btn-cart" style="margin-right: 15px;"><a href="add-to-cart?id=${o.id}">Thêm vào giỏ hàng</a></button>
         </div>
       </div>
     </div>

@@ -1,43 +1,85 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: HP
-  Date: 11/2/2021
-  Time: 3:26 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="DAO.*"%>
+<%@page import="Entity.*"%>
+<%@page import="java.util.*"%>
+<%@page import="java.text.DecimalFormat"%>
+
+<%
+  DecimalFormat dcf = new DecimalFormat("#.##");
+  request.setAttribute("dcf", dcf);
+  Account auth = (Account) request.getSession().getAttribute("acc");
+  if (auth != null) {
+    request.setAttribute("person", auth);
+  }
+  ArrayList<Item> cart_list = (ArrayList<Item>) session.getAttribute("cart-list");
+  List<Item> cartProduct = null;
+  if (cart_list != null) {
+    FoodDAO pDao = new FoodDAO();
+    cartProduct = pDao.getCartProducts(cart_list);
+    double total = pDao.getTotalCartPrice(cart_list);
+    request.setAttribute("total", total);
+    request.setAttribute("cart_list", cart_list);
+  }
+%>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Gio hang</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <title>Cart</title>
+  <style type="text/css">
+    .table tbody td{
+      vertical-align: middle;
+    }
+    .btn-incre, .btn-decre{
+      box-shadow: none;
+      font-size: 25px;
+    }
+  </style>
 </head>
 <body>
-<h2>Thong tin gio hang:</h2>
-<table border="1">
-  <tr>
-    <td>Id SP</td>
-    <td>Ten SP</td>
-    <td>Anh</td>
-    <td>So luong</td>
-    <td>Gia</td>
-    <td>Tong tien</td>
-    <td>Lua chon</td>
-  </tr>
-  <c:forEach items="${sessionScope.cart}" var="entry">
+<jsp:include page="menu.jsp"></jsp:include>
+
+<div class="container my-3">
+  <div class="d-flex py-3"><h3>Total Price: vnd ${(total>0)?dcf.format(total):0} </h3> <a class="mx-3 btn btn-primary" href="cart-check-out">Check Out</a></div>
+  <table class="table table-light">
+    <thead>
     <tr>
-      <td>${entry.key }</td>
-      <td>${entry.value.food.name }</td>
-      <td><img src="/finalweb10/download?image=${entry.value.food.image }" width="100" /></td>
-      <td>${entry.value.quantity }</td>
-      <td>${entry.value.unitPrice }</td>
-      <td>${entry.value.quantity * entry.value.unitPrice}</td>
-      <td><a href="/finalweb10/delete-from-cart?key=${entry.key }">Xoa</a></td>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
     </tr>
-  </c:forEach>
-</table>
-<a href="/finalweb10/member/add-order">Thanh toan</a>
+    </thead>
+    <tbody>
+    <%
+      if (cart_list != null) {
+        for (Item c : cartProduct) {
+    %>
+    <tr>
+      <td><%=c.getName()%></td>
+      <td><%= dcf.format(c.getPrice())%></td>
+      <td>
+        <form action="order-now" method="post" class="form-inline">
+          <input type="hidden" name="id" value="<%= c.getId()%>" class="form-input">
+          <div class="form-group d-flex justify-content-between">
+            <a class="btn bnt-sm btn-incre" href="quantity-inc-dec?action=inc&id=<%=c.getId()%>"><i class="fas fa-plus-square"></i></a>
+            <input type="text" name="quantity" class="form-control"  value="<%=c.getQuantity()%>" readonly>
+            <a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=<%=c.getId()%>"><i class="fas fa-minus-square"></i></a>
+          </div>
+          <td><button type="submit" class="btn btn-primary btn-sm">Buy</button></td>
+        </form>
+      </td>
+      <td><a href="remove-from-cart?id=<%=c.getId() %>" class="btn btn-sm btn-danger">Remove</a></td>
+    </tr>
+
+    <%
+        }}%>
+    </tbody>
+  </table>
+</div>
+
+
 </body>
 </html>

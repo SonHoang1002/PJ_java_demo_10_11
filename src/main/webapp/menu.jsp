@@ -15,6 +15,28 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
+<style>
+  .card-img-top{
+    height: 350px;
+    weight: 800px
+  }
+  @media only screen and (min-width: 400px) and (max-width:990px){
+    .all-button{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin: auto;
+    }
+    .button-1{
+      margin-left: 13px;
+      margin-bottom: 10px;
+    }
+
+  }
+
+
+</style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid" style="background-color: gray;">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,60 +87,7 @@
         <input name="txt" class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
         <button class="btn btn-success" >Tìm</button>
         <div class="btn-group ms-3">
-          <button id="cart" type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg style="margin-bottom: 4px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>  Giỏ hàng
-          </button>
-          <div id="myModal" class="modal">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Giỏ Hàng</h5>
-                <span  class="close">&times;</span>
-              </div>
-              <div class="modal-body">
-                <div class="cart-row">
-                  <span class="cart-item cart-header cart-column">Sản Phẩm</span>
-                  <span class="cart-price cart-header cart-column">Giá</span>
-                  <span class="cart-quantity cart-header cart-column">Số Lượng</span>
-                </div>
-                <div class="cart-items">
-                  <div class="cart-row">
-                    <div class="cart-item cart-column">
-                      <img class="cart-item-image" src="https://cdn3.ivivu.com/2017/08/bay-mon-an-noi-tieng-co-ten-doc-la-o-viet-nam-ivivu-3.jpg" width="100" height="100">
-                      <span class="cart-item-title">Do An</span>
-                    </div>
-                    <span class="cart-price cart-column">25000đ</span>
-                    <div class="cart-quantity cart-column">
-                      <input class="cart-quantity-input" type="number" value="1">
-                      <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                  </div>
-                  <div class="cart-row">
-                    <div class="cart-item cart-column">
-                      <img class="cart-item-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRie3z8Wfb-xxB29eL5docgKYfTZ5iVQ6tQ&usqp=CAU" width="120" height="100">
-                      <span class="cart-item-title">Do An</span>
-                    </div>
-                    <span class="cart-price cart-column">1599000đ</span>
-                    <div class="cart-quantity cart-column">
-                      <input class="cart-quantity-input" type="number" value="2">
-                      <button class="btn btn-danger" type="button">Xóa</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="cart-total">
-                  <strong class="cart-total-title">Tổng Cộng:</strong>
-                  <span class="cart-total-price">0VNĐ</span>
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                <button  type="button" class="btn btn-secondary close-footer">Đóng</button>
-                <button  type="button" class="btn btn-primary order">Thanh Toán</button>
-              </div>
-            </div>
-          </div>
-        </div>
+          <a href="cart.jsp">Giỏ hàng</a>
         <c:if test="${sessionScope.acc == null}">
           <button id="login" type="button" style="background-color: lightcoral" ><span ><a href="login.jsp">Login</a></span></button>
         </c:if>
@@ -129,5 +98,482 @@
     </div>
   </div>
 </nav>
+<style>
+  /* modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    margin: 0 auto;
+    width: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: .3rem;
+    outline: 0;
+
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    display: flex;
+    border-top: 1px solid #aaaaaa;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-top: 1px solid #aaaaaa;
+    padding: 1rem;
+  }
+
+  .modal-footer>:not(:first-child) {
+    margin-left: .25rem;
+  }
+
+  .btn {
+    cursor: pointer;
+    outline: none;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: all .2s ease-in-out;
+  }
+
+  .btn-secondary {
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background-color: #0275d8;
+    border-color: #0275d8;
+  }
+
+  .modal-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #aaaaaa;
+    padding: 1rem;
+  }
+
+  h5.modal-title {
+    font-size: 1.5rem;
+  }
+
+  .close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #cart {
+    font-size: 15px;
+    color: #fff;
+    background: #c7b200;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    outline: none;
+    margin-left: 1rem;
+    padding: 12px;
+    cursor: pointer;
+  }
+
+  #cart:hover {
+    border-color: #fff;
+  }
+  /* cart */
+  .cart-header {
+    font-weight: bold;
+    font-size: 1.25em;
+    color: #333;
+  }
+
+  .cart-column {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-right: 1.5em;
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .cart-row {
+    display: flex;
+  }
+
+  .cart-item {
+    width: 45%;
+  }
+
+  .cart-price {
+    width: 20%;
+    font-size: 1.2em;
+    color: #333;
+  }
+
+  .cart-quantity {
+    width: 35%;
+  }
+
+  .cart-item-title {
+    color: #333;
+    margin-left: .5em;
+    font-size: 1.2em;
+  }
+
+  .cart-item-image {
+    width: 75px;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .btn-danger {
+    color: white;
+    background-color: #EB5757;
+    border: none;
+    border-radius: .3em;
+    font-weight: bold;
+  }
+
+  .btn-danger:hover {
+    background-color: #CC4C4C;
+  }
+
+  .cart-quantity-input {
+    height: 34px;
+    width: 50px;
+    border-radius: 5px;
+    border: 1px solid #56CCF2;
+    background-color: #eee;
+    color: #333;
+    padding: 0;
+    text-align: center;
+    font-size: 1.2em;
+    margin-right: 25px;
+  }
+
+  .cart-row:last-child {
+    border-bottom: 1px solid black;
+  }
+
+  .cart-row:last-child .cart-column {
+    border: none;
+  }
+
+  .cart-total {
+    text-align: end;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  .cart-total-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: black;
+    margin-right: 20px;
+  }
+
+  .cart-total-price {
+    color: #333;
+    font-size: 1.1em;
+  }
+
+  .hotline-phone-ring-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999999;
+  }
+
+  .hotline-bar {
+    position: absolute;
+    background: rgba(230, 8, 8, 0.75);
+    height: 40px;
+    width: 180px;
+    line-height: 40px;
+    border-radius: 3px;
+    padding: 0 10px;
+    background-size: 100%;
+    cursor: pointer;
+    z-index: 9;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.1);
+    left: 33px;
+    bottom: 37px;
+  }
+  .hotline-bar > a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    text-indent: 50px;
+    display: block;
+    letter-spacing: 1px;
+    line-height: 40px;
+    font-family: Arial;
+  }
+  @media only screen and (min-width:590px)  and (max-width: 990px) {
+    .button{
+      display:flex;
+      flex-direction:column;
+      align-items: center;
+      text-align: center;
+      margin: auto;
+    }
+    .button #btn-add-cart{
+      margin-left: 13px;
+      margin-bottom: 10px;
+    }
+
+  }
+
+
+  .nav-item:hover{
+    background-color:cornflowerblue;
+  }
+  @media (min-width:980px) and (max-width:1024px) {
+    .nav-link{
+      height: 100%;
+    }
+  }
+  .float-contact {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 99999;
+  }
+  .chat-zalo {
+    background: #8eb22b;
+    border-radius: 20px;
+    padding: 0 18px;
+    color: white;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .chat-face {
+    background: #125c9e;
+    border-radius: 20px;
+    padding: 0 18px;
+    color: white;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .float-contact .hotline {
+    background: #d11a59!important;
+    border-radius: 20px;
+    padding: 0 18px;
+    color: white;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .chat-zalo a, .chat-face a, .hotline a {
+    font-size: 15px;
+    color: white;
+    font-weight: 400;
+    text-transform: none;
+    line-height: 0;
+  }
+  @media (max-width: 549px){
+    .float-contact{
+      display:none
+    }
+  }
+
+  footer{
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 50px 100px;
+    background: #111;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  footer .container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  footer .container .noi-dung{
+    margin-right: 30px;
+  }
+  footer  .container .noi-dung.about{
+    width:40%;
+  }
+  footer .container .noi-dung.about h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  footer .container .noi-dung.about h2:before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #f00;
+  }
+  footer .container .noi-dung.about p{
+    color: #999;
+  }
+  /*Thiết Lập Cho Thành Phần Icon Mạng Xã Hội*/
+  .social-icon{
+    margin-top: 20px;
+    display: flex;
+  }
+  .social-icon li {
+    list-style: none;
+  }
+  .social-icon li a{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .social-icon li a:hover{
+    background: #f00;
+  }
+  .social-icon li a .fa{
+    color: #fff;
+    font-size: 20px;
+  }
+  .links h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  .links h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  .links h2::before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #f00;
+  }
+  .links{
+    position: relative;
+    width: 25%;
+  }
+  .links ul li{
+    list-style: none;
+  }
+  .links ul li a{
+    color: #999;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  .links ul li a:hover{
+    color: #fff;
+  }
+  .contact h2{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  .contact h2::before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #f00;
+  }
+  .contact{
+    width: calc(35% - 60px);
+    margin-right: 0 !important;
+  }
+  .contact .info{
+    position: relative;
+  }
+  .contact .info li{
+    display: flex;
+    margin-bottom: 16px;
+  }
+  .contact .info li span:nth-child(1) {
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  .contact .info li span{
+    color: #999;
+  }
+  .contact .info li a{
+    color: #999;
+    text-decoration: none;
+  }
+  @media  (max-width: 768px){
+    footer{
+      padding: 40px;
+    }
+    footer .container{
+      flex-direction: column;
+    }
+    footer .container .noi-dung{
+      margin-right: 0;
+      margin-bottom: 40px;
+    }
+    footer .container, .noi-dung.about, .links, .contact{
+      width: 100%;
+    }
+  }
+
+</style>
+
 </body>
 </html>

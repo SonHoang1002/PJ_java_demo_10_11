@@ -3,7 +3,7 @@ package Entity;
 public class Account {
     private int uID;
     private String username;
-    private  String password;
+    private String password;
     private String soDT;
     private String avatar;
     private String email;

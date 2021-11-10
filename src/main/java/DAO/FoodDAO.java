@@ -1,14 +1,8 @@
 package DAO;
 
-import Entity.Account;
-import Entity.Category;
-import Entity.Comment;
-import Entity.Food;
+import Entity.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -329,6 +323,117 @@ public class FoodDAO {
         }catch (Exception e){
 
         }
+    }
+
+    public List<Item> getCartProducts(ArrayList<Item> cartList) {
+        Connection conn = getConnection();
+        List<Item> food = new ArrayList<>();
+        try {
+            if (cartList.size() > 0) {
+                for (Item item : cartList) {
+                    PreparedStatement ps = conn.prepareStatement("SELECT * FROM food WHERE id = ?");
+                    ps.setInt(1, item.getId());
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        Item row = new Item();
+                        row.setId(rs.getInt("id"));
+                        row.setName(rs.getString("name"));
+                        row.setPrice(rs.getFloat("price")*item.getQuantity());
+                        row.setQuantity(item.getQuantity());
+                        food.add(row);
+                    }
+
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return food;
+
+    }
+    public float getTotalCartPrice(ArrayList<Item> cartList) {
+        Connection conn = getConnection();
+        float sum = 0;
+        try {
+            if (cartList.size() > 0) {
+                for (Item item : cartList) {
+                    PreparedStatement ps = conn.prepareStatement("select price from food where id=?");
+                    ps.setInt(1, item.getId());
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        sum+=rs.getFloat("price")*item.getQuantity();
+                    }
+
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return sum;
+    }
+
+    public boolean insertOrder(Cart model) {
+        Connection conn = getConnection();
+        boolean result = false;
+        try {
+            PreparedStatement pst = conn.prepareStatement("insert into CART (uID,id,DateCreate,Quantity) values(?,?,?,?)");
+            pst.setInt(1, model.getUserID());
+            pst.setInt(2, model.getId());
+            pst.setString(3, model.getDateCreate());
+            pst.setInt(4, model.getQuantity());
+            pst.executeUpdate();
+            result = true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
+
+    public List<Cart> userOrders(String id) {
+        Connection conn = getConnection();
+        List<Cart> list = new ArrayList<>();
+        try {
+            PreparedStatement pst = conn.prepareStatement("select * from CART where uID=? order by CART.id desc");
+            pst.setString(1, id);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Cart order = new Cart();
+                FoodDAO productDao = new FoodDAO();
+                int pId = rs.getInt("id");
+                Food product = productDao.getFoodByID(id);
+                order.setOrderID(rs.getInt("id"));
+                order.setId(pId);
+                order.setName(product.getName());
+                order.setPrice(product.getPrice()*rs.getInt("Quantity"));
+                order.setQuantity(rs.getInt("Quantity"));
+                order.setDateCreate(rs.getString("DateCreate"));
+                list.add(order);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    public void cancelOrder(int id) {
+        //boolean result = false;
+        Connection conn = getConnection();
+        try {
+            PreparedStatement pst = conn.prepareStatement("delete from CART where id=?");
+            pst.setInt(1, id);
+            pst.execute();
+            //result = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.print(e.getMessage());
+        }
+        //return result;
     }
 
 }
