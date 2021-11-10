@@ -11,7 +11,7 @@ use foodweb;
 );
 
 INSERT INTO seller VALUES (1, N'Hà Nội Xưa', N'100 Xã Đàn, Đống Đa, Hà Nội', '0987654321',3);
-INSERT INTO seller VALUES (2, N'Góc Hà Thành', N'77 Nguyễn Trãi, Thanh Xuân, Hà Nội', '0987654320',1);
+INSERT INTO seller VALUES (2,r N'Góc Hà Thành', N'77 Nguyễn Trãi, Thanh Xuân, Hà Nội', '0987654320',1);
 
 */
 drop table food

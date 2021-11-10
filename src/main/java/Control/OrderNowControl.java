@@ -66,7 +66,7 @@ public class OrderNowControl extends HttpServlet {
             e.printStackTrace();
         }
     }
-
+//take note
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
