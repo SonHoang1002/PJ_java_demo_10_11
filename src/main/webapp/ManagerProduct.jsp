@@ -37,7 +37,10 @@
                     <h2><b>Quản lý sản phẩm</b></h2>
                 </div>
                 <div class="col-sm-6">
-                    <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
+                    <a style="margin-top:10px; text-align: center"  href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal">
+                        <i style="margin-top:5px;" class="material-icons">&#xE147;</i>
+                        <p>Thêm Sản Phẩm</p>
+                    </a>
                 </div>
             </div>
         </div>

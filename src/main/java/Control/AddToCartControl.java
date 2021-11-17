@@ -48,7 +48,15 @@ public class AddToCartControl extends HttpServlet {
                 for (Item it : item_list) {
                     if (it.getId() == id) {
                         exist = true;
-                        out.println("<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>");
+//                        out.println("<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>");
+                        out.println("<div style='margin:auto;width: 400px;height: 250px; border: red 2px; background-color: tomato; display: flex;align-items: center;flex-direction: column;border: black solid 2px;border-radius:8px;'>");
+                        out.println("<div style='margin-top:50px;'>");
+                        out.println("<h2 style='color:green; font-size:35px'>Item Already in Cart. </h2>");
+                        out.println("</div>");
+                        out.println("<div  style='margin-top: 30px;'>");
+                        out.println("<button id='close' type='button' style='background-color: aqua;height: 30px;'><a style='text-decoration: none;color:white;' href='cart.jsp'>Đi Đến Giỏ Hàng</a> </button>");
+                        out.println("<button id=send type='button' style='background-color: gray;height:30px'><a style='text-decoration: none;color:white;' href='/'>Trở Về Trang Chủ</a> </button>");
+                        out.println("</div></div>");
                     }
                 }
 

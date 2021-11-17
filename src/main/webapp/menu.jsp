@@ -16,42 +16,43 @@
 </head>
 <body>
 <style>
-  .card-img-top{
-    height: 350px;
-    weight: 800px
-  }
-  @media only screen and (min-width: 400px) and (max-width:990px){
-    .all-button{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin: auto;
-    }
-    .button-1{
-      margin-left: 13px;
-      margin-bottom: 10px;
-    }
 
+  @media only screen and (min-width: 970px) and (max-width:1150px){
+    #con-fluid{
+      background-color:tomato;
+      font-size: 15px;
+      disPlay:flex;
+    }
+  }
+  .href_link{
+    color: white;
+    text-decoration: none;
+  }
+  .href_link:hover{
+    color:white;
+  }
+  #con-fluid{
+    background-color:tomato;
+    font-size: 23px;
   }
 
 
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid" style="background-color: gray;">
+  <div class="container-fluid" id="con-fluid" >
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item" style="line-height: 80px;">
-          <a class="nav-link active"  href="/">Trang chủ</a>
+        <li class="nav-item"  style="line-height: 80px;">
+          <a class="nav-link active"  href="/" style="color:black">Trang chủ</a>
         </li>
         <li class="nav-item" style="line-height: 80px;">
-          <a class="nav-link" href="#">Về chúng tôi</a>
+          <a class="nav-link" href="#" style="color:black">Về chúng tôi</a>
         </li>
         <li class="nav-item dropdown" style="line-height: 80px;">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+          <a style="color:black" class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
             Danh mục
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
@@ -63,11 +64,10 @@
         <c:if test="${sessionScope.acc != null}">
           <li class="nav-item dropdown" style="line-height: 80px;">
             <a class="nav-link dropdown-toggle" href="#" style="font-family: Arial Rounded MT Bold; font-size: 20px" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-              Xin chào ${sessionScope.acc.username}
+              <span style="font-size:23px;color:black;">Xin chào ${sessionScope.acc.username}</span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
               <li><a class="dropdown-item" href="/loadProfile">Thiết lập tài khoản</a></li>
-              <li><hr class="dropdown-divider"></li>
               <c:if test="${sessionScope.acc.isAdmin == 1}">
                 <li><a class="dropdown-item" href="#">Quản lý người dùng</a></li>
               </c:if>
@@ -77,69 +77,33 @@
             </ul>
           </li>
         </c:if>
-
-
-
-
-
       </ul>
-      <form class="d-flex" method="get" action="/search">
-        <input name="txt" class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
-        <button class="btn btn-success" >Tìm</button>
-        <div class="btn-group ms-3">
-          <a href="cart.jsp">Giỏ hàng</a>
+      <form class="d-flex" method="get" action="/search" >
+          <input name="txt" class="form-control me-2" type="search" placeholder="Tìm Kiếm" aria-label="Search">
+        <button class="btn btn-success" >Tìm Kiếm</button>
+        <div class="btn-group ms-3" style="color:yellow">
+
+          <button id="cart" type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
+            <svg style="margin-bottom: 4px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg><a class="href_link" href="cart.jsp" style="">Giỏ Hàng</a>
+          </button>
         <c:if test="${sessionScope.acc == null}">
-          <button id="login" type="button" style="background-color: lightcoral" ><span ><a href="login.jsp">Login</a></span></button>
+<%--          <button id="login" type="button" style="background-color: lightcoral" ><span ><a href="login.jsp">Login</a></span></button>--%>
+          <button id="login" type="button" class="guest btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#modal-login"><span ><a class="href_link" href="login.jsp">Đăng Nhập</a></span></button>
         </c:if>
         <c:if test="${sessionScope.acc != null}">
-          <button id="logout" type="button" style="background-color: lightcoral" ><span ><a href="/logout">Logout</a></span></button>
+          <button id="logout" type="button" class="guest btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#modal-login"><span ><a class="href_link" href="/logout">Đăng Xuất</a></span></button>
+<%--          <button id="logout" type="button" style="background-color: lightcoral" ><span ><a href="/logout">Logout</a></span></button>--%>
         </c:if>
       </form>
     </div>
   </div>
 </nav>
 <style>
-  /* modal */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  .modal-content {
-    margin: 0 auto;
-    width: 50%;
-    position: relative;
+  #navbarScroll{
     display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .2);
-    border-radius: .3rem;
-    outline: 0;
-
-  }
-
-  .modal-body {
-    padding: 1rem;
-  }
-
-  .modal-footer {
-    display: flex;
-    border-top: 1px solid #aaaaaa;
-    padding: 1rem;
-    flex-direction: row;
-    justify-content: flex-end;
-    border-top: 1px solid #aaaaaa;
-    padding: 1rem;
+    justify-content: space-between;
   }
 
   .modal-footer>:not(:first-child) {
@@ -161,179 +125,26 @@
     transition: all .2s ease-in-out;
   }
 
-  .btn-secondary {
-    color: #292b2c;
-    background-color: #fff;
-    border-color: #ccc;
-  }
-
   .btn-primary {
     color: #fff;
     background-color: #0275d8;
     border-color: #0275d8;
   }
-
-  .modal-header {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #aaaaaa;
-    padding: 1rem;
-  }
-
-  h5.modal-title {
-    font-size: 1.5rem;
-  }
-
-  .close {
-    color: #aaaaaa;
-    font-size: 28px;
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
   #cart {
     font-size: 15px;
     color: #fff;
     background: #c7b200;
     border: 1px solid transparent;
-    border-radius: 10px;
     outline: none;
     margin-left: 1rem;
     padding: 12px;
     cursor: pointer;
   }
-
   #cart:hover {
     border-color: #fff;
   }
-  /* cart */
-  .cart-header {
-    font-weight: bold;
-    font-size: 1.25em;
-    color: #333;
-  }
-
-  .cart-column {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid black;
-    margin-right: 1.5em;
-    padding-bottom: 10px;
-    margin-top: 10px;
-  }
-
-  .cart-row {
-    display: flex;
-  }
-
-  .cart-item {
-    width: 45%;
-  }
-
-  .cart-price {
-    width: 20%;
-    font-size: 1.2em;
-    color: #333;
-  }
-
-  .cart-quantity {
-    width: 35%;
-  }
-
-  .cart-item-title {
-    color: #333;
-    margin-left: .5em;
-    font-size: 1.2em;
-  }
-
-  .cart-item-image {
-    width: 75px;
-    height: auto;
-    border-radius: 10px;
-  }
-
-  .btn-danger {
-    color: white;
-    background-color: #EB5757;
-    border: none;
-    border-radius: .3em;
-    font-weight: bold;
-  }
-
-  .btn-danger:hover {
-    background-color: #CC4C4C;
-  }
-
-  .cart-quantity-input {
-    height: 34px;
-    width: 50px;
-    border-radius: 5px;
-    border: 1px solid #56CCF2;
-    background-color: #eee;
-    color: #333;
-    padding: 0;
-    text-align: center;
-    font-size: 1.2em;
-    margin-right: 25px;
-  }
-
-  .cart-row:last-child {
-    border-bottom: 1px solid black;
-  }
-
   .cart-row:last-child .cart-column {
     border: none;
-  }
-
-  .cart-total {
-    text-align: end;
-    margin-top: 10px;
-    margin-right: 10px;
-  }
-
-  .cart-total-title {
-    font-weight: bold;
-    font-size: 1.5em;
-    color: black;
-    margin-right: 20px;
-  }
-
-  .cart-total-price {
-    color: #333;
-    font-size: 1.1em;
-  }
-
-  .hotline-phone-ring-wrap {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 999999;
-  }
-
-  .hotline-bar {
-    position: absolute;
-    background: rgba(230, 8, 8, 0.75);
-    height: 40px;
-    width: 180px;
-    line-height: 40px;
-    border-radius: 3px;
-    padding: 0 10px;
-    background-size: 100%;
-    cursor: pointer;
-    z-index: 9;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.1);
-    left: 33px;
-    bottom: 37px;
   }
   .hotline-bar > a {
     color: #fff;
@@ -360,38 +171,16 @@
     }
 
   }
-
-
   .nav-item:hover{
-    background-color:cornflowerblue;
+    background-color:lightyellow;
+
   }
   @media (min-width:980px) and (max-width:1024px) {
     .nav-link{
       height: 100%;
     }
   }
-  .float-contact {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 99999;
-  }
-  .chat-zalo {
-    background: #8eb22b;
-    border-radius: 20px;
-    padding: 0 18px;
-    color: white;
-    display: block;
-    margin-bottom: 6px;
-  }
-  .chat-face {
-    background: #125c9e;
-    border-radius: 20px;
-    padding: 0 18px;
-    color: white;
-    display: block;
-    margin-bottom: 6px;
-  }
+
   .float-contact .hotline {
     background: #d11a59!important;
     border-radius: 20px;
@@ -455,10 +244,7 @@
     color: #999;
   }
   /*Thiết Lập Cho Thành Phần Icon Mạng Xã Hội*/
-  .social-icon{
-    margin-top: 20px;
-    display: flex;
-  }
+
   .social-icon li {
     list-style: none;
   }
@@ -488,12 +274,6 @@
     margin-bottom: 15px;
   }
 
-  .links h2{
-    position: relative;
-    color: #fff;
-    font-weight: 500;
-    margin-bottom: 15px;
-  }
   .links h2::before{
     content: '';
     position: absolute;
@@ -503,10 +283,7 @@
     height: 2px;
     background: #f00;
   }
-  .links{
-    position: relative;
-    width: 25%;
-  }
+
   .links ul li{
     list-style: none;
   }
@@ -534,10 +311,7 @@
     height: 2px;
     background: #f00;
   }
-  .contact{
-    width: calc(35% - 60px);
-    margin-right: 0 !important;
-  }
+
   .contact .info{
     position: relative;
   }

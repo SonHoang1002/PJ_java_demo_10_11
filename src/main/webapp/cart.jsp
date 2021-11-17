@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <title>Cart</title>
+
   <style type="text/css">
     .table tbody td{
       vertical-align: middle;
@@ -43,7 +44,11 @@
 <jsp:include page="menu.jsp"></jsp:include>
 
 <div class="container my-3">
-  <div class="d-flex py-3"><h3>Total Price: vnd ${(total>0)?dcf.format(total):0} </h3> <a class="mx-3 btn btn-primary" href="cart-check-out">Check Out</a></div>
+  <div class="d-flex py-3">
+    <h3>Tổng Tiền:${(total>0)?dcf.format(total):0} VND </h3>
+    <a class="mx-3 btn btn-primary" href="cart-check-out"> Check out</a>
+    <a class="mx-3 btn btn-primary" href="/">Quay Về Trang Chủ</a>
+  </div>
   <table class="table table-light">
     <thead>
     <tr>

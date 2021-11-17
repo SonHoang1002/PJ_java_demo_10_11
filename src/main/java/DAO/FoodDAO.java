@@ -11,7 +11,7 @@ public class FoodDAO {
         Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodweb", "root", "Phambaongoc2221");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodweb", "root", "12345");
         } catch (Exception e) {
             e.printStackTrace();
         }
