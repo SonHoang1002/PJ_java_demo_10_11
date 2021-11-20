@@ -11,38 +11,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Thông Tin Cá Nhân</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 </head>
 <body>
-<style>
-  .inf-content{
-    border:1px solid #DDDDDD;
-    -webkit-border-radius:10px;
-    -moz-border-radius:10px;
-    border-radius:10px;
-    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
-  }
-</style>
-<div class="container bootstrap snippets bootdey">
-  <div class="panel-body inf-content">
+
+<jsp:include page="menu.jsp"></jsp:include>
+
+  <div class="container" >
     <div class="row">
       <div class="col-md-4">
-        <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="${profile.avatar}" data-original-title="Usuario">
-        <ul title="Ratings" class="list-inline ratings text-center">
-          <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-        </ul>
+        <img alt="" style="width:600px;margin-top:40px;" title="" class="img-circle img-thumbnail isTooltip" src="${profile.avatar}" data-original-title="Usuario">
       </div>
-      <div class="col-md-6">
-        <strong><b style="font-size: 20px">THÔNG TIN CÁ NHÂN</b></strong><br>
-        <div class="table-responsive">
+      <div class="col-md-6" style="margin-top:30px;">
+        <strong><b style="font-size: 40px">THÔNG TIN CÁ NHÂN</b></strong><br>
+        <div class="table-responsive" style="font-size:30px;">
           <table class="table table-user-information">
             <tbody>
             <tr>
@@ -108,11 +94,12 @@
             </tr>
             </tbody>
           </table>
-          <a href="profile?uID=${profile.uID}" class="edit" data-toggle="modal">Chỉnh sửa trang cá nhân</a>
+
+          <button style="margin-top:15px;height:60px;min-width: 100px;margin-bottom:10px;background-color: #53A3CD;"><a  style="text-decoration: none;color: white;text-align: center" href="profile?uID=${profile.uID}" class="edit" data-toggle="modal">Chỉnh Sửa Trang Cá Nhân</a></button>
         </div>
       </div>
     </div>
   </div>
-</div>
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

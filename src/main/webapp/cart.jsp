@@ -28,7 +28,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <title>Cart</title>
+  <title>Giỏ Hàng</title>
 
   <style type="text/css">
     .table tbody td{
@@ -43,7 +43,7 @@
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
 
-<div class="container my-3">
+<div class="container my-3" style="margin-bottom: 100px;margin-top: 50px;">
   <div class="d-flex py-3">
     <h3>Tổng Tiền:${(total>0)?dcf.format(total):0} VND </h3>
     <a class="mx-3 btn btn-primary" href="cart-check-out"> Check out</a>
@@ -78,13 +78,12 @@
       </td>
       <td><a href="remove-from-cart?id=<%=c.getId() %>" class="btn btn-sm btn-danger">Remove</a></td>
     </tr>
-
     <%
         }}%>
     </tbody>
   </table>
 </div>
 
-
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
